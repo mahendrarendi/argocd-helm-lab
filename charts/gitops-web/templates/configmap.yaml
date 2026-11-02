@@ -1,0 +1,59 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "gitops-web.fullname" . }}-page
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "gitops-web.labels" . | nindent 4 }}
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>GitOps Demo Web</title>
+      <style>
+        * { box-sizing: border-box; }
+        body {
+          margin: 0;
+          min-height: 100vh;
+          display: grid;
+          place-items: center;
+          padding: 24px;
+          font-family: system-ui, sans-serif;
+          background: {{ .Values.page.backgroundColor }};
+          color: #0f172a;
+        }
+        main {
+          width: 100%;
+          max-width: 560px;
+          padding: 40px;
+          border-radius: 20px;
+          background: #ffffff;
+          box-shadow: 0 20px 60px #00000025;
+        }
+        h1 { margin-top: 0; }
+        dt { margin-top: 18px; color: #64748b; }
+        dd { margin: 4px 0 0; font-weight: 600; }
+        footer { margin-top: 32px; color: #64748b; }
+      </style>
+    </head>
+    <body>
+      <main>
+        <h1>GitOps Demo Web</h1>
+        <p>{{ .Values.page.message | html }}</p>
+        <dl>
+          <dt>Environment</dt>
+          <dd>{{ .Values.page.environment | html }}</dd>
+          <dt>Demo version</dt>
+          <dd>{{ .Values.page.version | html }}</dd>
+          <dt>Namespace</dt>
+          <dd>{{ .Release.Namespace | html }}</dd>
+          <dt>Helm release</dt>
+          <dd>{{ .Release.Name | html }}</dd>
+        </dl>
+        <footer>Managed through Git, Helm, and Argo CD</footer>
+      </main>
+    </body>
+    </html>

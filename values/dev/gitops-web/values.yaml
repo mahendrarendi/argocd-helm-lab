@@ -1,0 +1,7 @@
+replicaCount: 1
+
+page:
+  environment: development
+  version: "v1"
+  message: "Hello from development!"
+  backgroundColor: "#2563eb"

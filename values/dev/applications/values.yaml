@@ -1,0 +1,22 @@
+argocdNamespace: argocd
+
+projects:
+  - name: demo-dev
+    description: Development demo applications
+    sourceRepos:
+      - "https://github.com/mahendrarendi/argocd-helm-lab.git"
+    destinations:
+      - server: https://kubernetes.default.svc
+        namespace: demo-dev
+
+applications:
+  - name: gitops-web-dev
+    project: demo-dev
+    repoURL: "https://github.com/mahendrarendi/argocd-helm-lab.git"
+    revision: main
+    path: charts/gitops-web
+    valueFiles:
+      - ../../values/dev/gitops-web/values.yaml
+    destination:
+      server: https://kubernetes.default.svc
+      namespace: demo-dev

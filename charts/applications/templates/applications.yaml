@@ -1,0 +1,26 @@
+{{- range .Values.applications }}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ .name }}
+  namespace: {{ $.Values.argocdNamespace }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+spec:
+  project: {{ .project }}
+  source:
+    repoURL: {{ .repoURL | quote }}
+    targetRevision: {{ .revision | quote }}
+    path: {{ .path | quote }}
+    helm:
+      releaseName: {{ .name | quote }}
+      valueFiles:
+        {{- toYaml .valueFiles | nindent 8 }}
+  destination:
+    server: {{ .destination.server | quote }}
+    namespace: {{ .destination.namespace | quote }}
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+{{- end }}

@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: root-dev
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: "https://github.com/mahendrarendi/argocd-helm-lab.git"
+    targetRevision: main
+    path: charts/applications
+    helm:
+      releaseName: root-dev
+      valueFiles:
+        - ../../values/dev/applications/values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd

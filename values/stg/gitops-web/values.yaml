@@ -1,0 +1,7 @@
+replicaCount: 2
+
+page:
+  environment: staging
+  version: "v1"
+  message: "Hello from staging!"
+  backgroundColor: "#15803d"
