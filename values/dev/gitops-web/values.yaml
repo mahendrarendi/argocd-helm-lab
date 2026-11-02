@@ -1,7 +1,8 @@
-replicaCount: 1
+replicaCount: 2
+
 
 page:
   environment: development
-  version: "v1"
-  message: "Hello from development!"
-  backgroundColor: "#2563eb"
+  version: "v2"
+  message: "This update was deployed through GitOps!"
+  backgroundColor: "#7c3aed"
